@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using CourseMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using CourseMarket.Services;
+using System.IO;
 
 namespace CourseMarket
 {
@@ -42,7 +43,24 @@ namespace CourseMarket
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404 &&
+                    !Path.HasExtension(context.Request.Path.Value) &&
+                    !context.Request.Path.Value.StartsWith("/api/"))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
+
+            // Configures application for usage as API with default route of '/api/[Controller]'
+            app.UseMvcWithDefaultRoute();
+
+            // Configures applcation to serve the index.html file from /wwwroot when you access the server from a web browser
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }

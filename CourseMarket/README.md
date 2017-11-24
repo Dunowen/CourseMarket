@@ -1,0 +1,1 @@
+## Ez itt a Readme fájl, ami faszán megjelenik a projekt kezdőképernyőjén githubon. 
