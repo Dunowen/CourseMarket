@@ -12,6 +12,8 @@ using CourseMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using CourseMarket.Services;
 using System.IO;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace CourseMarket
 {
@@ -28,6 +30,20 @@ namespace CourseMarket
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+            //by default camelCase-ben küldené kliens oldalra a queryk eredményét a .NET Core, ezért a következő sorral ezt ignoráljuk
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddDbContext<CourseMarketDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CourseMarketDatabase")));
 
             services.AddScoped<ITimesService, TimesService>();
