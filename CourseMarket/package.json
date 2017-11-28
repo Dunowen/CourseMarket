@@ -4,20 +4,20 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-	"es6-object-assign": "^1.1.0",
-    "es6-promise": "^4.1.0",
+    "es6-object-assign": "^1.1.0",
+    "es6-promise": "^4.1.1",
     "es6-promise-polyfill": "^1.2.0",
     "es6-promise-promise": "^1.0.0",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
-    "redux-thunk": "^2.2.0",
-	"react-bootstrap": "^0.31.0",
-    "react-router-dom": "^4.1.1",
-	"react-redux": "^5.0.5",
-    "redux": "^3.6.0"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
-  "proxy": "http://localhost:60154",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && RMDIR wwwroot /S /Q && xcopy build\\* wwwroot\\ /e /i /y /s",

@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import * as universityActions from "../../redux/actions/universityAction";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     static defaultProps = {
         universities: {}

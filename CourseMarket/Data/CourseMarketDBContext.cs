@@ -24,6 +24,20 @@ namespace CourseMarket.Data
         public CourseMarketDBContext(DbContextOptions<CourseMarketDBContext> options) : base(options)
         {
             Database.EnsureCreated();
+
+            if (!this.Universities.Any())
+                InitData();
+        }
+
+        private void InitData()
+        {
+            this.Universities.Add(new Universities
+            {
+                Name = "Corvinus egyetem",
+                Tag = "BCE",
+                IsDeleted = false
+            });
+            this.SaveChanges();
         }
     }
 }

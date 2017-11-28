@@ -11,10 +11,6 @@ let store = configureLocalStore();
 
 class Application extends React.Component {
 
-    constructor(props) {
-        super();
-    }
-
     render() {
         return (
             <div>
@@ -44,6 +40,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById("root")
 );
-
-
-//ReactDOM.render(<App />, document.getElementById('root'));
