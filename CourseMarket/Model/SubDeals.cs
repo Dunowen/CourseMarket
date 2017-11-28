@@ -10,8 +10,8 @@ namespace CourseMarket.Model
     {
         public int Id { get; set; }
 
-        public int OfferCourseId { get; set; }
-        public virtual Courses OfferCourse { get; set; }
+        public int? OfferCourseId { get; set; }
+        public virtual Courses OfferCourse { get; set; }    
 
         public int LookingForCourseId { get; set; }
         public virtual Courses LookingForCourse { get; set; }

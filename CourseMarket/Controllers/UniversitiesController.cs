@@ -1,8 +1,7 @@
-﻿using CourseMarket.Services;
+﻿using CourseMarket.Model;
+using CourseMarket.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CourseMarket.Controllers
@@ -20,8 +19,23 @@ namespace CourseMarket.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var uni = await universitiesService.GetUniversities();
-            return Ok(uni);
+            try
+            {
+                var uni = await universitiesService.GetUniversities();
+                var res = new ResponseContainer<Universities>()
+                {
+                    Data = uni
+                };
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                var res = new ResponseContainer<Universities>()
+                {
+                    Exception = ex
+                };
+                return BadRequest(res);
+            }
         }
 
         [HttpGet("{id}")]
