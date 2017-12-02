@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 export default class Navigation extends Component {
     render() {
@@ -81,7 +82,9 @@ class NavLinkDropdown extends Component {
 class NavLink extends Component {
     render() {
         return (
-            <li className={(this.props.active ? "active" : "")} > <a href={this.props.linkTo}>{this.props.text}</a></li>
+            <li className={(this.props.active ? "active" : "")} >
+                <Link to={this.props.linkTo} activeClassName="active">{this.props.text}</Link>
+            </li>
         );
     }
 };

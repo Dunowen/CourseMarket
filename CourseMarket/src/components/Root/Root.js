@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 
 import Home from '../Home/Home';
 import Navigation from '../Navigation/Navigation';
+import Universities from '../Universities/Universities';
 
 
 const Root = ({ store }) => (
@@ -13,7 +14,7 @@ const Root = ({ store }) => (
 
             <div className="container">
                 <Route exact path="/" component={Home} />
-                <Route path="/universities" component={Home} />
+                <Route path="/universities" component={Universities} />
             </div>
         </div>
     </Provider>
