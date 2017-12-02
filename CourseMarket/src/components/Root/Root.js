@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { Route } from 'react-router-dom'
 
@@ -10,16 +9,28 @@ import Navigation from '../Navigation/Navigation';
 const Root = ({ store }) => (
     <Provider store={store}>
         <div>
-            <Navigation />
+            <Navigation {...navbar} />
 
-            <Route exact path="/" component={Home} />
-            <Route path="/home" component={Home} />
+            <div className="container">
+                <Route exact path="/" component={Home} />
+                <Route path="/universities" component={Home} />
+            </div>
         </div>
     </Provider>
 )
 
-Root.propTypes = {
-    store: PropTypes.object.isRequired,
-}
+var navbar = {};
+navbar.brand =
+    { linkTo: "/", text: "Course Market" };
+navbar.links = [
+    { linkTo: "/", text: "Kezdőlap" },
+    { linkTo: "/universities", text: "Egyetemek" },
+    {
+        dropdown: true, text: "Piactér", links: [
+            { linkTo: "/courses", text: "Tantárgyak" },
+            { linkTo: "/exams", text: "Vizsgalehetőségek" }
+        ]
+    }
+];
 
 export default Root;
