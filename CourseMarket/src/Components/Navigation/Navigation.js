@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import './Navigation.css';
+import { setLocale } from 'react-redux-i18n';
 
 export default class Navigation extends Component {
     render() {
@@ -15,8 +17,8 @@ export default class Navigation extends Component {
                         </button>
                         <NavBrand linkTo={this.props.brand.linkTo} text={this.props.brand.text} />
                     </div>
-                    <div className="collapse navbar-collapse" id="navbar-collapse">
-                        <NavMenu links={this.props.links} />
+                    <div className="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                        <NavMenu store={this.props.store} links={this.props.links} />
                     </div>
                 </div>
             </nav>
@@ -34,10 +36,15 @@ class NavBrand extends Component {
 
 class NavMenu extends Component {
     render() {
-        var links = this.props.links.map(function (link) {
+        var links = this.props.links.map((link) => {
             if (link.dropdown) {
                 return (
                     <NavLinkDropdown key={link.text} links={link.links} text={link.text} active={link.active} />
+                );
+            }
+            if (link.language) {
+                return (
+                    <LanguageDropdown store={this.props.store} key={link.text} languages={link.languages} text={link.text} />
                 );
             }
             else {
@@ -57,7 +64,7 @@ class NavMenu extends Component {
 class NavLinkDropdown extends Component {
     render() {
         var active = false;
-        var links = this.props.links.map(function (link) {
+        var links = this.props.links.map((link) => {
             if (link.active) {
                 active = true;
             }
@@ -79,11 +86,34 @@ class NavLinkDropdown extends Component {
     }
 };
 
+class LanguageDropdown extends Component {
+    render() {
+        var languages = this.props.languages.map((language) => {
+            return (
+                <li key={language.text}>
+                    <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>{language.text}</a>
+                </li>
+            );
+        });
+        return (
+            <li className="dropdown ">
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {this.props.text}
+                    <span className="caret"></span>
+                </a>
+                <ul className="dropdown-menu">
+                    {languages}
+                </ul>
+            </li>
+        );
+    }
+};
+
 class NavLink extends Component {
     render() {
         return (
             <li className={(this.props.active ? "active" : "")} >
-                <Link to={this.props.linkTo} activeClassName="active">{this.props.text}</Link>
+                <Link to={this.props.linkTo} activeclassname="active">{this.props.text}</Link>
             </li>
         );
     }

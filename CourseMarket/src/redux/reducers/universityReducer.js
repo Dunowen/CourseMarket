@@ -1,11 +1,11 @@
-const initialState = { universities: [] };
+const initialState = { universitiesList: [] };
 
 const UniversityReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case "GET_UNIVERSITIES":
       return Object.assign({}, state, {
-        universities: action.data.data
+        universitiesList: action.data.data
       });
     default:
       return state;

@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        universities: state.universities.universities
+        universities: state.reducers.universities.universitiesList
     };
 };
 

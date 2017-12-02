@@ -10,7 +10,7 @@ import Universities from '../Universities/Universities';
 const Root = ({ store }) => (
     <Provider store={store}>
         <div>
-            <Navigation {...navbar} />
+            <Navigation {...navbar} store={store} />
 
             <div className="container">
                 <Route exact path="/" component={Home} />
@@ -31,7 +31,13 @@ navbar.links = [
             { linkTo: "/courses", text: "Tantárgyak" },
             { linkTo: "/exams", text: "Vizsgalehetőségek" }
         ]
-    }
+    },
+    {
+        language: true, text: "Nyelv váltása", languages: [
+            { lang: "hu", text: "Magyar" },
+            { lang: "en", text: "Angol" }
+        ]
+    },
 ];
 
 export default Root;

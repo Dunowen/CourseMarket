@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import { connect } from 'react-redux';
-import * as universityActions from "../../redux/actions/universityAction";
+var Translate = require('react-redux-i18n').Translate;
 
 class Home extends Component {
 
@@ -11,6 +11,7 @@ class Home extends Component {
                 <p className="App-intro">
                     To get started, edit <code>src/Components/Home.js</code> and save to reload.
                 </p>
+                <Translate value="home"/>
             </div>
         );
     }

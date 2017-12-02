@@ -1,13 +1,17 @@
-import { applyMiddleware, createStore, compose } from 'redux';
+import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import RootReducer from '../reducers/reducers';
+import { i18nReducer } from 'react-redux-i18n';
 
 export default function configureStore(initialState) {
-    // Only if the Redux development tool extension is available.
+
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    
-    return createStore (
-        RootReducer,
+
+    return createStore(
+        combineReducers({
+            reducers: RootReducer,
+            i18n: i18nReducer
+        }),
         initialState,
         composeEnhancers(applyMiddleware(thunk)));
 }
