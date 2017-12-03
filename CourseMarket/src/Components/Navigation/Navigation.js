@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import './Navigation.css';
 import { setLocale } from 'react-redux-i18n';
+var Translate = require('react-redux-i18n').Translate;
 
 export default class Navigation extends Component {
     render() {
@@ -75,7 +76,7 @@ class NavLinkDropdown extends Component {
         return (
             <li className={"dropdown " + (active ? "active" : "")}>
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {this.props.text}
+                    <Translate value={this.props.text} />
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -91,14 +92,16 @@ class LanguageDropdown extends Component {
         var languages = this.props.languages.map((language) => {
             return (
                 <li key={language.text}>
-                    <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>{language.text}</a>
+                    <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>
+                        <Translate value={language.text} />
+                    </a>
                 </li>
             );
         });
         return (
             <li className="dropdown ">
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {this.props.text}
+                    <Translate value={this.props.text} />
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -113,7 +116,9 @@ class NavLink extends Component {
     render() {
         return (
             <li className={(this.props.active ? "active" : "")} >
-                <Link to={this.props.linkTo} activeclassname="active">{this.props.text}</Link>
+                <Link to={this.props.linkTo} activeclassname="active">
+                    <Translate value={this.props.text} />
+                </Link>
             </li>
         );
     }

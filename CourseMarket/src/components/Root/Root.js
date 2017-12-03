@@ -6,7 +6,6 @@ import Home from '../Home/Home';
 import Navigation from '../Navigation/Navigation';
 import Universities from '../Universities/Universities';
 
-
 const Root = ({ store }) => (
     <Provider store={store}>
         <div>
@@ -24,18 +23,18 @@ var navbar = {};
 navbar.brand =
     { linkTo: "/", text: "Course Market" };
 navbar.links = [
-    { linkTo: "/", text: "Kezdőlap" },
-    { linkTo: "/universities", text: "Egyetemek" },
+    { linkTo: "/", text: "Navigation.home" },
+    { linkTo: "/universities", text: "Navigation.universities" },
     {
-        dropdown: true, text: "Piactér", links: [
-            { linkTo: "/courses", text: "Tantárgyak" },
-            { linkTo: "/exams", text: "Vizsgalehetőségek" }
+        dropdown: true, text: "Navigation.market", links: [
+            { linkTo: "/courses", text: "Navigation.courses" },
+            { linkTo: "/exams", text: "Navigation.exams" }
         ]
     },
     {
-        language: true, text: "Nyelv váltása", languages: [
-            { lang: "hu", text: "Magyar" },
-            { lang: "en", text: "Angol" }
+        language: true, text: "Navigation.language", languages: [
+            { lang: "hu", text: "Navigation.hungarian" },
+            { lang: "en", text: "Navigation.english" }
         ]
     },
 ];

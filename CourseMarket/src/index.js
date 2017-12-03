@@ -9,7 +9,7 @@ import configureLocalStore from './redux/store/configureStore';
 import translations from './config/translation';
 
 const translationsObject = translations;
-console.log(translations);
+
 let store = configureLocalStore();
 
 syncTranslationWithStore(store);

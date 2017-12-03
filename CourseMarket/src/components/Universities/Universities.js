@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Universities.css';
 import { connect } from 'react-redux';
 import * as universityActions from "../../redux/actions/universityAction";
+var Translate = require('react-redux-i18n').Translate;
 
 class Universities extends Component {
 
@@ -13,7 +14,7 @@ class Universities extends Component {
         return (
             <div>
                 <p className="App-intro">
-                    Támogatott egyetemek listája:
+                    <Translate value="Universities.supportedUniversities" />
                 </p>
                 <ul>
                     {this.props.universities.Data ? this.renderUniversities() : ""}
