@@ -31,12 +31,9 @@ namespace CourseMarket.Data
 
         private void InitData()
         {
-            this.Universities.Add(new Universities
-            {
-                Name = "Corvinus egyetem",
-                Tag = "BCE",
-                IsDeleted = false
-            });
+            this.Universities.Add(new Universities { Name = "Corvinus egyetem", Tag = "BCE", IsDeleted = false });
+            this.Universities.Add(new Universities { Name = "Óbudai Egyetem", Tag = "Óbudai", IsDeleted = false });
+            this.Universities.Add(new Universities { Name = "Műegyetem", Tag = "BME", IsDeleted = false });
             this.SaveChanges();
         }
     }
