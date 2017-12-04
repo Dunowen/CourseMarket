@@ -8,8 +8,8 @@ class getApi {
     getData(url) {
         return axios(url).then(response => {
             return response;
-        }).catch(function (error) {
-            console.log("Error while processing getApi call");
+        }).catch((error) => {
+            console.log("Error while processing getApi call", error);
         });
     };
 }

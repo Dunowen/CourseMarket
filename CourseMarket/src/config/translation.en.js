@@ -9,8 +9,17 @@ const enTranslations = {
         hungarian: "Hungarian",
         english: "English"
     },
+    Home: {
+        introduction: "Welcome to the CourseMarket!"
+    },
     Universities: {
         supportedUniversities: "List of supported universities:"
+    },
+    Courses:{
+        introduction: "Courses page"
+    },
+    Exams:{
+        introduction: "Exams page"
     }
 };
 

@@ -9,8 +9,17 @@ const huTranslations = {
         hungarian: "Magyar",
         english: "Angol"
     },
+    Home: {
+        introduction: "Üdvözlünk a CourseMarket-en!"
+    },
     Universities: {
         supportedUniversities: "Támogatott egyetemek listája:"
+    },
+    Courses: {
+        introduction: "Tantárgyak"
+    },
+    Exams: {
+        introduction: "Vizsgalehetőségek"
     }
 };
 

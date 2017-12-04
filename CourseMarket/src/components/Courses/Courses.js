@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import './Home.css';
+import './Courses.css';
 import { connect } from 'react-redux';
 var Translate = require('react-redux-i18n').Translate;
 
-class Home extends Component {
+class Courses extends Component {
 
     render() {
         return (
             <div>
                 
-                <Translate value="Home.introduction"/>
+                <Translate value="Courses.introduction"/>
             </div>
         );
     }
@@ -27,6 +27,6 @@ const mapStateToProps = state => {
     };
 };
 
-Home = connect(mapStateToProps, mapDispatchToProps)(Home);
+Courses = connect(mapStateToProps, mapDispatchToProps)(Courses);
 
-export default Home;
+export default Courses;

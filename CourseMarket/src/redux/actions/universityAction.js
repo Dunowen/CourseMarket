@@ -8,7 +8,7 @@ export function getUniversitiesAsync() {
         return universityApi.getActionType().then(response => {
             dispatch(getActionType(response));
         }).catch(error => {
-            console.log("Error in getUniversitiesAction.")
+            console.log("Error in getUniversitiesAction.", error)
         });
     };
 }

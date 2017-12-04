@@ -5,6 +5,8 @@ import { Route } from 'react-router-dom'
 import Home from '../Home/Home';
 import Navigation from '../Navigation/Navigation';
 import Universities from '../Universities/Universities';
+import Courses from '../Courses/Courses';
+import Exams from '../Exams/Exams';
 
 const Root = ({ store }) => (
     <Provider store={store}>
@@ -14,6 +16,8 @@ const Root = ({ store }) => (
             <div className="container">
                 <Route exact path="/" component={Home} />
                 <Route path="/universities" component={Universities} />
+                <Route path="/courses" component={Courses} />
+                <Route path="/exams" component={Exams} />
             </div>
         </div>
     </Provider>
