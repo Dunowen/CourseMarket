@@ -1,0 +1,8 @@
+.university-row {
+    display: inline-flex;
+    margin-bottom: 15px;
+}
+
+.university-row > div {
+    margin-left: 30px;
+}

@@ -44,10 +44,10 @@ namespace CourseMarket
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddDbContext<CourseMarketDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CourseMarketDatabase")));
-            
+            //services.AddDbContext<CourseMarketDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CourseMarketDatabase")));
+
             // for local development without SQL server and SSMS
-            //services.AddDbContext<CourseMarketDBContext>(options => options.UseInMemoryDatabase(new Guid().ToString()));
+            services.AddDbContext<CourseMarketDBContext>(options => options.UseInMemoryDatabase(new Guid().ToString()));
 
             services.AddScoped<ITimesService, TimesService>();
             services.AddScoped<IUniversitiesService, UniversitiesService>();
