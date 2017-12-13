@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Route, withRouter } from 'react-router-dom'
+import AuthService from '../../utils/AuthService';
+import { connect } from 'react-redux';
+import { authActions } from '../../redux/auth/auth';
+
 import './Navigation.css';
 import { setLocale } from 'react-redux-i18n';
 var Translate = require('react-redux-i18n').Translate;
 
-export default class Navigation extends Component {
+class Navigation extends Component {
+
+    constructor(props) {
+        super(props);
+        this.AuthService = new AuthService();
+    }
+
     render() {
         return (
             <nav className="navbar navbar-inverse" >
@@ -20,12 +30,55 @@ export default class Navigation extends Component {
                     </div>
                     <div className="collapse navbar-collapse navbar-right" id="navbar-collapse">
                         <NavMenu store={this.props.store} links={this.props.links} />
+                        {this.props.auth.isAuthenticated ?
+                            <div>
+                                <img src={this.props.auth.profile.picture} height="40px" alt="profile" className="img-circle"/>
+                                <span>Welcome, {this.props.auth.profile.nickname}</span>
+                                <button
+                                    onClick={() => {
+                                        AuthService.logout(); // careful, this is a static method
+                                        this.props.logoutSuccess();
+                                    }}>Logout
+                                </button>
+                            </div>
+                            :
+                            <button
+                                onClick={() => {
+                                    this.AuthService.login();
+                                    this.props.loginRequest();
+                                }}
+                            >Login
+                            </button>
+                        }
+                        {this.props.auth.error &&
+                            console.log(this.props.auth.error)}
+                        }
                     </div>
                 </div>
+
+
             </nav>
         );
     }
+
+
 };
+
+const mapStateToProps = state => ({
+    auth: state.reducers.auth,
+});
+
+const mapDispatchToProps = dispatch => ({
+    loginRequest: () => dispatch(authActions.loginRequest()),
+    logoutSuccess: () => dispatch(authActions.logoutSuccess()),
+});
+
+export default withRouter(connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Navigation));
+
+
 
 class NavBrand extends Component {
     render() {

@@ -27,7 +27,6 @@ class Home extends Component {
                         </div>
                     </Panel>
                 </PanelGroup>
-                <span>{this.props.text}</span>
             </div>
         );
     }
@@ -41,7 +40,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        text: state.i18n.Home
+
     };
 };
 
