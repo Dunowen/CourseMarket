@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import AuthService from '../../utils/AuthService';
 import { connect } from 'react-redux';
 import { authActions } from '../../redux/auth/auth';

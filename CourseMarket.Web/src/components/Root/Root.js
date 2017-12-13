@@ -78,7 +78,6 @@ class Root extends React.Component {
     }
 }
 
-
 const mapDispatchToProps = dispatch => ({
     loginSuccess: profile => dispatch(authActions.loginSuccess(profile)),
     loginError: error => dispatch(authActions.loginError(error)),
