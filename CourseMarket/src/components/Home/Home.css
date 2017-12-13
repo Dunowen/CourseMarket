@@ -1,0 +1,7 @@
+.panel-title > a {
+    text-decoration: none;
+}
+
+.panel-title > a:hover {
+    cursor: pointer;
+}

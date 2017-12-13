@@ -10,7 +10,8 @@ const enTranslations = {
         english: "English"
     },
     Home: {
-        introduction: "Welcome to the CourseMarket!"
+        welcome: "Welcome to the CourseMarket!",
+        whatisit: "This page has been created to ease the Course and Exam registration period for every student studying in Hungary."
     },
     Universities: {
         supportedUniversities: "List of supported universities:"
