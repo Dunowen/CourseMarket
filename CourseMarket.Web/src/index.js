@@ -8,12 +8,10 @@ import Root from './components/Root/Root';
 import configureLocalStore from './redux/store/configureStore';
 import translations from './config/translation';
 
-const translationsObject = translations;
-
 let store = configureLocalStore();
 
 syncTranslationWithStore(store);
-store.dispatch(loadTranslations(translationsObject));
+store.dispatch(loadTranslations(translations));
 store.dispatch(setLocale('hu'));
 
 ReactDOM.render(
