@@ -31,16 +31,12 @@ class Navigation extends Component {
                     <div className="collapse navbar-collapse navbar-right" id="navbar-collapse">
                         <NavMenu store={this.props.store} links={this.props.links} />
                         {this.props.auth.isAuthenticated ?
-                            <div>
-                                <img src={this.props.auth.profile.picture} height="40px" alt="profile" className="img-circle"/>
-                                <span>Welcome, {this.props.auth.profile.nickname}</span>
-                                <button
-                                    onClick={() => {
-                                        AuthService.logout(); // careful, this is a static method
-                                        this.props.logoutSuccess();
-                                    }}>Logout
+                            <button
+                                onClick={() => {
+                                    AuthService.logout(); // careful, this is a static method
+                                    this.props.logoutSuccess();
+                                }}>Logout
                                 </button>
-                            </div>
                             :
                             <button
                                 onClick={() => {
@@ -65,7 +61,7 @@ class Navigation extends Component {
 };
 
 const mapStateToProps = state => ({
-    auth: state.reducers.auth,
+    auth: state.reducers.auth
 });
 
 const mapDispatchToProps = dispatch => ({

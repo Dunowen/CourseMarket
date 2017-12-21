@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './Home.css';
 import { connect } from 'react-redux';
-import { Panel, PanelGroup } from 'react-bootstrap';
+import { Panel, PanelGroup, Row, Col } from 'react-bootstrap';
+import HomeProfile from '../Home-Profile/Home-Profile';
+import HomeUniversity from '../Home-University/Home-University';
 
 var Translate = require('react-redux-i18n').Translate;
 //required for translation passed to Panel header prop
@@ -15,6 +17,16 @@ class Home extends Component {
 
         return (
             <div>
+                {this.props.auth.isAuthenticated &&
+                    <Row>
+                        <Col className="home-dashboard" sm={6}>
+                            <HomeProfile profile={this.props.auth.profile}/>
+                        </Col>
+                        <Col sm={6}>
+                            <HomeUniversity />
+                        </Col>
+                    </Row>
+                }
                 <PanelGroup accordion defaultActiveKey="1">
                     <Panel header={this.panel1header} eventKey="1">
                         <div>
@@ -40,7 +52,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-
+        auth: state.reducers.auth
     };
 };
 

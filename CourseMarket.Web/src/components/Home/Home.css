@@ -5,3 +5,7 @@
 .panel-title > a:hover {
     cursor: pointer;
 }
+
+.home-dashboard {
+    margin-bottom: 15px;
+}
