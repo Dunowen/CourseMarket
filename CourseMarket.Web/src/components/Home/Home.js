@@ -20,20 +20,20 @@ class Home extends Component {
                 {this.props.auth.isAuthenticated &&
                     <Row>
                         <Col className="home-dashboard" sm={6}>
-                            <HomeProfile profile={this.props.auth.profile}/>
+                            <HomeProfile profile={this.props.auth.profile} />
                         </Col>
                         <Col sm={6}>
                             <HomeUniversity />
                         </Col>
                     </Row>
                 }
-                <PanelGroup accordion defaultActiveKey="1">
-                    <Panel header={this.panel1header} eventKey="1">
+                <PanelGroup>
+                    <Panel header={this.panel1header}>
                         <div>
                             <Translate value="Home.whatisit" />
                         </div>
                     </Panel>
-                    <Panel header={this.panel2header} eventKey="2">
+                    <Panel header={this.panel2header}>
                         <div>
                             <Translate value="Home.availableAt" />
                         </div>
