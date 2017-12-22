@@ -60,12 +60,12 @@ class Root extends React.Component {
         this.navbar.brand =
             { linkTo: "/", text: "Course Market" };
         this.navbar.links = [
-            { linkTo: "/", text: "Navigation.home" },
-            { linkTo: "/universities", text: "Navigation.universities" },
+            { linkTo: "/", text: "Navigation.home", iconClassName: "fa fa-home"},
+            { linkTo: "/universities", text: "Navigation.universities", iconClassName: "fa fa-university" },
             {
                 dropdown: true, text: "Navigation.market", links: [
-                    { linkTo: "/courses", text: "Navigation.courses" },
-                    { linkTo: "/exams", text: "Navigation.exams" }
+                    { linkTo: "/courses", text: "Navigation.courses", iconClassName: "fa fa-book" },
+                    { linkTo: "/exams", text: "Navigation.exams", iconClassName: "fa fa-pencil-square-o" }
                 ]
             },
             {

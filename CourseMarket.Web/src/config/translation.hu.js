@@ -7,7 +7,9 @@ const huTranslations = {
         exams: "Vizsgalehetőségek",
         language: "Nyelv váltása",
         hungarian: "Magyar",
-        english: "Angol"
+        english: "Angol",
+        login: "Bejelentkezés",
+        logout: "Kijelentkezés"
     },
     Home: {
         welcome: "Üdvözlünk a CourseMarket-en!",

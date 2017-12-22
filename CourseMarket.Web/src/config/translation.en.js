@@ -7,7 +7,9 @@ const enTranslations = {
         exams: "Exams",
         language: "Change language",
         hungarian: "Hungarian",
-        english: "English"
+        english: "English",
+        login: "Sign in",
+        logout: "Log out"
     },
     Home: {
         welcome: "Welcome to the CourseMarket!",

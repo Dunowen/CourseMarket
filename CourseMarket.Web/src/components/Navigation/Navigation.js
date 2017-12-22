@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'
-import AuthService from '../../utils/AuthService';
 import { connect } from 'react-redux';
-import { authActions } from '../../redux/auth/auth';
-
-import './Navigation.css';
 import { setLocale } from 'react-redux-i18n';
+import 'font-awesome/css/font-awesome.css';
+
+import AuthService from '../../utils/AuthService';
+import { authActions } from '../../redux/auth/auth';
+import './Navigation.css';
 var Translate = require('react-redux-i18n').Translate;
 
 class Navigation extends Component {
@@ -30,34 +31,34 @@ class Navigation extends Component {
                     </div>
                     <div className="collapse navbar-collapse navbar-right" id="navbar-collapse">
                         <NavMenu store={this.props.store} links={this.props.links} />
-                        {this.props.auth.isAuthenticated ?
-                            <button
-                                onClick={() => {
-                                    AuthService.logout(); // careful, this is a static method
-                                    this.props.logoutSuccess();
-                                }}>Logout
-                                </button>
-                            :
-                            <button
-                                onClick={() => {
-                                    this.AuthService.login();
-                                    this.props.loginRequest();
-                                }}
-                            >Login
-                            </button>
-                        }
-                        {this.props.auth.error &&
-                            console.log(this.props.auth.error)}
-                        }
+                        <ul className="nav navbar-nav">
+                            {this.props.auth.isAuthenticated ?
+                                <li>
+                                    <a className="navigation-auth-button"
+                                        onClick={() => {
+                                            AuthService.logout(); // careful, this is a static method
+                                            this.props.logoutSuccess();
+                                        }}>
+                                        <Translate value="Navigation.logout" />
+                                    </a>
+                                </li>
+                                :
+                                <li>
+                                    <a className="navigation-auth-button"
+                                        onClick={() => {
+                                            this.AuthService.login();
+                                            this.props.loginRequest();
+                                        }}>
+                                        <Translate value="Navigation.login" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </div>
-
-
             </nav>
         );
     }
-
-
 };
 
 const mapStateToProps = state => ({
@@ -69,12 +70,7 @@ const mapDispatchToProps = dispatch => ({
     logoutSuccess: () => dispatch(authActions.logoutSuccess()),
 });
 
-export default withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Navigation));
-
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
 
 class NavBrand extends Component {
     render() {
@@ -99,7 +95,7 @@ class NavMenu extends Component {
             }
             else {
                 return (
-                    <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} />
+                    <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} iconClassName={link.iconClassName} />
                 );
             }
         });
@@ -119,7 +115,7 @@ class NavLinkDropdown extends Component {
                 active = true;
             }
             return (
-                <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} />
+                <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} iconClassName={link.iconClassName} />
             );
         });
         return (
@@ -142,6 +138,7 @@ class LanguageDropdown extends Component {
             return (
                 <li key={language.text}>
                     <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>
+                        <i className={language.iconClassName} aria-hidden="true"></i>
                         <Translate value={language.text} />
                     </a>
                 </li>
@@ -166,6 +163,7 @@ class NavLink extends Component {
         return (
             <li className={(this.props.active ? "active" : "")} >
                 <Link to={this.props.linkTo} activeclassname="active">
+                    <i className={this.props.iconClassName} aria-hidden="true"></i>
                     <Translate value={this.props.text} />
                 </Link>
             </li>
