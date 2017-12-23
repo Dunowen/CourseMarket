@@ -1,7 +1,7 @@
-li > a:hover {
+li>a:hover {
     cursor: pointer;
 }
 
-/* .navigation-auth-button {
-    font-weight: bolder;
-} */
+i {
+    margin-right: 5px;
+}
