@@ -23,12 +23,12 @@ class HomeProfile extends Component {
                         <Table className="home-profile-table">
                             <tr>
                                 <td><Translate value="Home.Profile.registrationDate" /></td>
-                                <td>{this.props.profile.created_at}</td>
+                                <td>{new Date(this.props.profile.created_at).toLocaleString()}</td>
                             </tr>
 
                             <tr>
                                 <td><Translate value="Home.Profile.lastLogin" /></td>
-                                <td>{this.props.profile.updated_at}</td>
+                                <td>{new Date(this.props.profile.updated_at).toLocaleString()}</td>
                             </tr>
 
                             <tr>
