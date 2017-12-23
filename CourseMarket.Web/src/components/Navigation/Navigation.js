@@ -85,7 +85,7 @@ class NavMenu extends Component {
         var links = this.props.links.map((link) => {
             if (link.dropdown) {
                 return (
-                    <NavLinkDropdown key={link.text} links={link.links} text={link.text} active={link.active} />
+                    <NavLinkDropdown key={link.text} links={link.links} text={link.text} active={link.active} iconClassName={link.iconClassName} />
                 );
             }
             if (link.language) {
@@ -121,6 +121,7 @@ class NavLinkDropdown extends Component {
         return (
             <li className={"dropdown " + (active ? "active" : "")}>
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i className={this.props.iconClassName} aria-hidden="true"></i>
                     <Translate value={this.props.text} />
                     <span className="caret"></span>
                 </a>
@@ -138,7 +139,6 @@ class LanguageDropdown extends Component {
             return (
                 <li key={language.text}>
                     <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>
-                        <i className={language.iconClassName} aria-hidden="true"></i>
                         <Translate value={language.text} />
                     </a>
                 </li>
