@@ -85,17 +85,17 @@ class NavMenu extends Component {
         var links = this.props.links.map((link) => {
             if (link.dropdown) {
                 return (
-                    <NavLinkDropdown key={link.text} links={link.links} text={link.text} active={link.active} iconClassName={link.iconClassName} />
+                    <NavLinkDropdown key={link.text} dropdown={link} />
                 );
             }
             if (link.language) {
                 return (
-                    <LanguageDropdown store={this.props.store} key={link.text} languages={link.languages} text={link.text} />
+                    <LanguageDropdown store={this.props.store} key={link.text} languages={link} />
                 );
             }
             else {
                 return (
-                    <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} iconClassName={link.iconClassName} />
+                    <NavLink key={link.text} link={link} />
                 );
             }
         });
@@ -110,19 +110,19 @@ class NavMenu extends Component {
 class NavLinkDropdown extends Component {
     render() {
         var active = false;
-        var links = this.props.links.map((link) => {
+        var links = this.props.dropdown.links.map((link) => {
             if (link.active) {
                 active = true;
             }
             return (
-                <NavLink key={link.text} linkTo={link.linkTo} text={link.text} active={link.active} iconClassName={link.iconClassName} />
+                <NavLink key={link.text} link={link} />
             );
         });
         return (
             <li className={"dropdown " + (active ? "active" : "")}>
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i className={this.props.iconClassName} aria-hidden="true"></i>
-                    <Translate value={this.props.text} />
+                    <i className={this.props.dropdown.iconClassName} aria-hidden="true"></i>
+                    <Translate value={this.props.dropdown.text} />
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -135,7 +135,7 @@ class NavLinkDropdown extends Component {
 
 class LanguageDropdown extends Component {
     render() {
-        var languages = this.props.languages.map((language) => {
+        var languages = this.props.languages.languages.map((language) => {
             return (
                 <li key={language.text}>
                     <a onClick={() => this.props.store.dispatch(setLocale(language.lang))}>
@@ -147,7 +147,7 @@ class LanguageDropdown extends Component {
         return (
             <li className="dropdown ">
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <Translate value={this.props.text} />
+                    <Translate value={this.props.languages.text} />
                     <span className="caret"></span>
                 </a>
                 <ul className="dropdown-menu">
@@ -161,10 +161,10 @@ class LanguageDropdown extends Component {
 class NavLink extends Component {
     render() {
         return (
-            <li className={(this.props.active ? "active" : "")} >
-                <Link to={this.props.linkTo} activeclassname="active">
-                    <i className={this.props.iconClassName} aria-hidden="true"></i>
-                    <Translate value={this.props.text} />
+            <li className={(this.props.link.active ? "active" : "")} >
+                <Link to={this.props.link.linkTo} activeclassname="active">
+                    <i className={this.props.link.iconClassName} aria-hidden="true"></i>
+                    <Translate value={this.props.link.text} />
                 </Link>
             </li>
         );
