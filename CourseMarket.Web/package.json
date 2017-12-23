@@ -23,8 +23,9 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && RMDIR wwwroot /S /Q && xcopy build\\* wwwroot\\ /e /i /y /s",
+    "start": "set NODE_ENV=development && react-scripts start",
+    "build": "set NODE_ENV=production && react-scripts build && RMDIR wwwroot /S /Q && xcopy build\\* wwwroot\\ /e /i /y /s",
+    "build-local": "set NODE_ENV=development && react-scripts build && RMDIR wwwroot /S /Q && xcopy build\\* wwwroot\\ /e /i /y /s",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

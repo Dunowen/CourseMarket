@@ -54,16 +54,15 @@ class Root extends React.Component {
         )
     }
 
-
     initNavbarRoutes() {
         this.navbar = {};
         this.navbar.brand =
             { linkTo: "/", text: "Course Market" };
         this.navbar.links = [
-            { linkTo: "/", text: "Navigation.home", iconClassName: "fa fa-home"},
+            { linkTo: "/", text: "Navigation.home", iconClassName: "fa fa-home" },
             { linkTo: "/universities", text: "Navigation.universities", iconClassName: "fa fa-university" },
             {
-                dropdown: true, text: "Navigation.market", iconClassName: "fa fa-book", links: [
+                dropdown: true, text: "Navigation.market", iconClassName: "fa fa-dollar", links: [
                     { linkTo: "/courses", text: "Navigation.courses", iconClassName: "fa fa-book" },
                     { linkTo: "/exams", text: "Navigation.exams", iconClassName: "fa fa-pencil-square-o" }
                 ]
@@ -73,7 +72,7 @@ class Root extends React.Component {
                     { lang: "hu", text: "Navigation.hungarian" },
                     { lang: "en", text: "Navigation.english" }
                 ]
-            },
+            }
         ];
     }
 }
