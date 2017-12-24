@@ -1,19 +1,21 @@
 ﻿using CourseMarket.Model;
 using CourseMarket.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace CourseMarket.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UniversitiesController : Controller
     {
-        private readonly IUniversitiesService universitiesService;
+        private readonly IUniversitiesService UniversitiesService;
 
         public UniversitiesController(IUniversitiesService universitiesService)
         {
-            this.universitiesService = universitiesService;
+            this.UniversitiesService = universitiesService;
         }
 
         [HttpGet]
@@ -21,7 +23,7 @@ namespace CourseMarket.Controllers
         {
             try
             {
-                var uni = await universitiesService.GetUniversities();
+                var uni = await UniversitiesService.GetUniversities();
                 var res = new ResponseContainer<Universities>()
                 {
                     Data = uni
@@ -41,7 +43,7 @@ namespace CourseMarket.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var uni = await universitiesService.GetUniversities(id);
+            var uni = await UniversitiesService.GetUniversities(id);
             return Ok(uni);
         }
     }

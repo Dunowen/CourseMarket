@@ -14,6 +14,7 @@ using CourseMarket.Services;
 using System.IO;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CourseMarket
 {
@@ -40,6 +41,17 @@ namespace CourseMarket
                     .AllowCredentials());
             });
 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://dunowen.eu.auth0.com/";
+                options.Audience = "http://coursemarket.azurewebsites.net";
+            });
+
             //by default camelCase-ben küldené kliens oldalra a queryk eredményét a .NET Core, ezért a következő sorral ezt ignoráljuk
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -61,6 +73,8 @@ namespace CourseMarket
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.Use(async (context, next) =>
             {
