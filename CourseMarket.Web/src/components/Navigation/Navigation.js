@@ -17,6 +17,8 @@ class Navigation extends Component {
     }
 
     render() {
+        const { isAuthenticated } = this.props.auth;
+
         return (
             <nav className="navbar navbar-inverse" >
                 <div className="container">
@@ -30,9 +32,9 @@ class Navigation extends Component {
                         <NavBrand linkTo={this.props.brand.linkTo} text={this.props.brand.text} />
                     </div>
                     <div className="collapse navbar-collapse navbar-right" id="navbar-collapse">
-                        <NavMenu store={this.props.store} links={this.props.links} />
+                        <NavMenu store={this.props.store} links={this.props.links} auth={this.props.auth} />
                         <ul className="nav navbar-nav">
-                            {this.props.auth.isAuthenticated ?
+                            {isAuthenticated ?
                                 <li>
                                     <a className="navigation-auth-button"
                                         onClick={() => {
@@ -85,7 +87,7 @@ class NavMenu extends Component {
         var links = this.props.links.map((link) => {
             if (link.dropdown) {
                 return (
-                    <NavLinkDropdown key={link.text} dropdown={link} />
+                    <NavLinkDropdown key={link.text} dropdown={link} auth={this.props.auth} />
                 );
             }
             if (link.language) {
@@ -95,7 +97,7 @@ class NavMenu extends Component {
             }
             else {
                 return (
-                    <NavLink key={link.text} link={link} />
+                    <NavLink key={link.text} link={link} auth={this.props.auth} />
                 );
             }
         });
@@ -109,17 +111,19 @@ class NavMenu extends Component {
 
 class NavLinkDropdown extends Component {
     render() {
+        const { isAuthenticated } = this.props.auth;
         var active = false;
         var links = this.props.dropdown.links.map((link) => {
             if (link.active) {
                 active = true;
             }
             return (
-                <NavLink key={link.text} link={link} />
+                <NavLink key={link.text} link={link} auth={this.props.auth} />
             );
         });
+
         return (
-            <li className={"dropdown " + (active ? "active" : "")}>
+            <li className={"dropdown " + (active ? "active" : "")} style={{ display: this.props.dropdown.authentication ? (isAuthenticated ? 'initial' : 'none') : 'none' }}>
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <i className={this.props.dropdown.iconClassName} aria-hidden="true"></i>
                     <Translate value={this.props.dropdown.text} />
@@ -128,7 +132,7 @@ class NavLinkDropdown extends Component {
                 <ul className="dropdown-menu">
                     {links}
                 </ul>
-            </li>
+            </li >
         );
     }
 };
@@ -145,7 +149,7 @@ class LanguageDropdown extends Component {
             );
         });
         return (
-            <li className="dropdown ">
+            <li className="dropdown">
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <Translate value={this.props.languages.text} />
                     <span className="caret"></span>
@@ -160,8 +164,10 @@ class LanguageDropdown extends Component {
 
 class NavLink extends Component {
     render() {
+        const { isAuthenticated } = this.props.auth;
+
         return (
-            <li className={(this.props.link.active ? "active" : "")} >
+            <li className={(this.props.link.active ? "active" : "")} style={{ display: this.props.link.authentication ? (isAuthenticated ? 'initial' : 'none') : 'initial' }}>
                 <Link to={this.props.link.linkTo} activeclassname="active">
                     <i className={this.props.link.iconClassName} aria-hidden="true"></i>
                     <Translate value={this.props.link.text} />

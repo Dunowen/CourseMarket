@@ -51,9 +51,9 @@ class Root extends React.Component {
             { linkTo: "/", text: "Course Market" };
         this.navbar.links = [
             { linkTo: "/", text: "Navigation.home", iconClassName: "fa fa-home" },
-            { linkTo: "/universities", text: "Navigation.universities", iconClassName: "fa fa-university" },
+            { linkTo: "/universities", text: "Navigation.universities", iconClassName: "fa fa-university", authentication: true },
             {
-                dropdown: true, text: "Navigation.market", iconClassName: "fa fa-dollar", links: [
+                dropdown: true, text: "Navigation.market", iconClassName: "fa fa-dollar", authentication: true, links: [
                     { linkTo: "/courses", text: "Navigation.courses", iconClassName: "fa fa-book" },
                     { linkTo: "/exams", text: "Navigation.exams", iconClassName: "fa fa-pencil-square-o" }
                 ]
