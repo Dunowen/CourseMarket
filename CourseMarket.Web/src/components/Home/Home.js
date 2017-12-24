@@ -14,13 +14,14 @@ class Home extends Component {
     render() {
         this.panel1header = I18n.t("Home.welcome");
         this.panel2header = I18n.t("Home.availability");
+        const { isAuthenticated, profile } = this.props.auth;
 
         return (
             <div>
-                {this.props.auth.isAuthenticated &&
+                {isAuthenticated &&
                     <Row>
                         <Col className="home-dashboard" sm={6}>
-                            <HomeProfile profile={this.props.auth.profile} />
+                            <HomeProfile profile={profile} />
                         </Col>
                         <Col sm={6}>
                             <HomeUniversity />

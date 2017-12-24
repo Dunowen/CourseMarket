@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { loadTranslations, setLocale, syncTranslationWithStore } from 'react-redux-i18n';
 
 import './index.css';
 import Root from './components/Root/Root';
 import configureLocalStore from './redux/store/configureStore';
 import translations from './config/translation';
+import history from './utils/history';
 
 let store = configureLocalStore();
 
@@ -15,8 +16,8 @@ store.dispatch(loadTranslations(translations));
 store.dispatch(setLocale('hu'));
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router history={history}>
         <Root store={store} />
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('root')
 );

@@ -1,10 +1,9 @@
 import * as types from './types';
-import AuthService from '../../../utils/AuthService';
 
 export default function authReducer(state = {
-  isAuthenticated: !AuthService.isTokenExpired(),
+  isAuthenticated: localStorage.getItem('id_token') ? true : false,
   isFetching: false,
-  profile: AuthService.getProfile(),
+  profile: JSON.parse(localStorage.getItem('profile')),
   error: null,
 }, action) {
   switch (action.type) {

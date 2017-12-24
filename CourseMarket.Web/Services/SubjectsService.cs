@@ -36,7 +36,7 @@ namespace CourseMarket.Services
             return subject;
         }
 
-        public async Task<Subjects> UpdateSubject(Subjects subject)
+        public Task<Subjects> UpdateSubject(Subjects subject)
         {
             throw new NotImplementedException();
         }

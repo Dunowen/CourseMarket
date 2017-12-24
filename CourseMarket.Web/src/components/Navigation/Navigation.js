@@ -13,7 +13,7 @@ class Navigation extends Component {
 
     constructor(props) {
         super(props);
-        this.AuthService = new AuthService();
+        this.authService = new AuthService();
     }
 
     render() {
@@ -36,7 +36,7 @@ class Navigation extends Component {
                                 <li>
                                     <a className="navigation-auth-button"
                                         onClick={() => {
-                                            AuthService.logout(); // careful, this is a static method
+                                            this.authService.logout();
                                             this.props.logoutSuccess();
                                         }}>
                                         <Translate value="Navigation.logout" />
@@ -46,7 +46,7 @@ class Navigation extends Component {
                                 <li>
                                     <a className="navigation-auth-button"
                                         onClick={() => {
-                                            this.AuthService.login();
+                                            this.authService.login();
                                             this.props.loginRequest();
                                         }}>
                                         <Translate value="Navigation.login" />

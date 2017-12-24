@@ -3,13 +3,13 @@ import { Provider } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import AuthService from '../../utils/AuthService';
 import { connect } from 'react-redux';
-import { authActions } from '../../redux/auth/auth';
 
 import Home from '../Home/Home';
 import Navigation from '../Navigation/Navigation';
 import Universities from '../Universities/Universities';
 import Courses from '../Courses/Courses';
 import Exams from '../Exams/Exams';
+import Callback from '../Callback/Callback';
 
 class Root extends React.Component {
     constructor(props) {
@@ -18,24 +18,11 @@ class Root extends React.Component {
         this.initNavbarRoutes();
     }
 
-    componentWillMount() {
-        // Add callback for lock's `authenticated` event
-        this.authService.lock.on('authenticated', (authResult) => {
-            this.authService.lock.getProfile(authResult.idToken, (error, profile) => {
-                if (error) { return this.props.loginError(error); }
-                AuthService.setToken(authResult.idToken); // static method
-                AuthService.setProfile(profile); // static method
-                this.props.loginSuccess(profile);
-                return this.props.history.push({ pathname: '/' });
-            });
-        });
-        // Add callback for lock's `authorization_error` event
-        this.authService.lock.on('authorization_error', (error) => {
-            console.log(error);
-            this.props.loginError(error);
-            return this.props.history.push({ pathname: '/' });
-        });
-    }
+    handleAuthentication = ({ location }) => {
+        if (/access_token|id_token|error/.test(location.hash)) {
+            this.authService.handleAuthentication();
+        }
+    };
 
     render() {
         return (
@@ -48,6 +35,10 @@ class Root extends React.Component {
                         <Route path="/universities" component={Universities} />
                         <Route path="/courses" component={Courses} />
                         <Route path="/exams" component={Exams} />
+                        <Route path="/callback" render={props => {
+                            this.handleAuthentication(props);
+                            return <Callback />;
+                        }} />
                     </div>
                 </div>
             </Provider>
@@ -78,8 +69,7 @@ class Root extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loginSuccess: profile => dispatch(authActions.loginSuccess(profile)),
-    loginError: error => dispatch(authActions.loginError(error)),
+
 });
 
 Root = withRouter(connect(null, mapDispatchToProps)(Root));

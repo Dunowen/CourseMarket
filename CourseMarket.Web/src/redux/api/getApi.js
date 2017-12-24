@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AuthService from '../../utils/AuthService';
 
 require('es6-object-assign').polyfill();
 require('es6-promise').polyfill();
@@ -7,8 +6,9 @@ require('es6-promise').polyfill();
 class getApi {
 
     getData(url) {
-        const headers = { 'Authorization': `Bearer ${AuthService.getToken()}` }
-        
+        let id_token = localStorage.getItem('id_token');
+        const headers = { 'Authorization': `Bearer ${id_token}` }
+
         return axios.get(url, { headers }).then(response => {
             return response;
         }).catch((error) => {

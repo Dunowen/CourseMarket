@@ -48,8 +48,8 @@ namespace CourseMarket
 
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://dunowen.eu.auth0.com/";
-                options.Audience = "http://coursemarket.azurewebsites.net";
+                options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+                options.Audience = Configuration["Auth0:ClientId"];
             });
 
             //by default camelCase-ben küldené kliens oldalra a queryk eredményét a .NET Core, ezért a következő sorral ezt ignoráljuk

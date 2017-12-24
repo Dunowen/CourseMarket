@@ -1,86 +1,119 @@
-import Auth0Lock from 'auth0-lock';
-import jwtDecode from 'jwt-decode';
-
+import auth0 from 'auth0-js';
+import history from './history';
 import config from './config';
 
-export default class AuthService {
+export default class Auth {
+    userProfile;
+    tokenRenewalTimeout;
+
+    auth0 = new auth0.WebAuth({
+        domain: config.AUTH0_DOMAIN,
+        clientID: config.AUTH0_CLIENT_ID,
+        redirectUri: config.REDIRECT_URL,
+        responseType: 'token id_token',
+        scope: 'openid email profile'
+    });
+
     constructor() {
-        // Configure Auth0 lock
-        this.lock = new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_DOMAIN, {
-            auth: {
-                redirectUrl: config.REDIRECT_URL,
-                responseType: 'token id_token',
-            },
-            theme: {
-                primaryColor: '#b81b1c',
-            },
-            languageDictionary: {
-                title: 'CourseMarket Login',
-            },
-        });
-        // Binds login functions to keep this context
         this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+        this.handleAuthentication = this.handleAuthentication.bind(this);
+        this.isAuthenticated = this.isAuthenticated.bind(this);
+        this.getAccessToken = this.getAccessToken.bind(this);
+        this.getProfile = this.getProfile.bind(this);
+        this.scheduleRenewal();
     }
 
-    
     login() {
-        this.lock.show();
+        this.auth0.authorize();
     }
 
-    static loggedIn() {
-        // Checks if there is a saved token and it's still valid
-        const token = AuthService.getToken();
-        return !!token && !AuthService.isTokenExpired(token);
+    handleAuthentication() {
+        this.auth0.parseHash((err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+                this.setSession(authResult);
+                this.getProfile();
+                setTimeout(() => {
+                    //a világ legnagyobb cigánysága...
+                    history.replace('/');
+                    window.location.reload();
+                }, 2000);
+            } else if (err) {
+                history.replace('/');
+                console.log(err);
+                alert(`Error: ${err.error}. Check the console for further details.`);
+            }
+        });
     }
 
-    static logout() {
-        // Clear user token and profile data from window.localStorage
-        window.localStorage.removeItem('id_token');
-        window.localStorage.removeItem('profile');
+    setSession(authResult) {
+        let expiresAt = JSON.stringify(
+            authResult.expiresIn * 1000 + new Date().getTime()
+        );
+
+        localStorage.setItem('access_token', authResult.accessToken);
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem('expires_at', expiresAt);
+
+        this.scheduleRenewal();
     }
 
-    static getProfile() {
-        // Retrieves the profile data from window.localStorage
-        const profile = window.localStorage.getItem('profile');
-        return profile ? JSON.parse(window.localStorage.profile) : {};
-    }
-
-    static setProfile(profile) {
-        // Saves profile data to window.localStorage
-        window.localStorage.setItem('profile', JSON.stringify(profile));
-        // Triggers profile_updated event to update the UI
-    }
-
-    static setToken(idToken) {
-        // Saves user token to window.localStorage
-        window.localStorage.setItem('id_token', idToken);
-    }
-
-    static getToken() {
-        // Retrieves the user token from window.localStorage
-        return window.localStorage.getItem('id_token');
-    }
-
-    static getTokenExpirationDate() {
-        const token = AuthService.getToken();
-        const decoded = jwtDecode(token);
-        if (!decoded.exp) {
-            return null;
+    getAccessToken() {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+            throw new Error('No access token found');
         }
-
-        const date = new Date(0); // The 0 here is the key, which sets the date to the epoch
-        date.setUTCSeconds(decoded.exp);
-        return date;
+        return accessToken;
     }
 
-    static isTokenExpired() {
-        const token = AuthService.getToken();
-        if (!token) return true;
-        const date = AuthService.getTokenExpirationDate();
-        const offsetSeconds = 0;
-        if (date === null) {
-            return false;
+    getProfile(cb) {
+        let accessToken = this.getAccessToken();
+        this.auth0.client.userInfo(accessToken, (err, profile) => {
+            if (profile) {
+                this.userProfile = profile;
+                localStorage.setItem('profile', JSON.stringify(profile));
+            }
+        });
+    }
+
+    logout() {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('expires_at');
+        localStorage.removeItem('scopes');
+        localStorage.removeItem('profile');
+        this.userProfile = null;
+        clearTimeout(this.tokenRenewalTimeout);
+        history.replace('/');
+    }
+
+    isAuthenticated() {
+        let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+        return new Date().getTime() < expiresAt;
+    }
+
+    renewToken() {
+        this.auth0.checkSession({},
+            (err, result) => {
+                if (err) {
+                    alert(
+                        `Could not get a new token (${err.error}: ${err.error_description}).`
+                    );
+                } else {
+                    this.setSession(result);
+                    alert(`Successfully renewed auth!`);
+                }
+            }
+        );
+    }
+
+    scheduleRenewal() {
+        const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+        const delay = expiresAt - Date.now();
+        if (delay > 0) {
+            this.tokenRenewalTimeout = setTimeout(() => {
+                this.renewToken();
+            }, delay);
         }
-        return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)));
     }
 }
