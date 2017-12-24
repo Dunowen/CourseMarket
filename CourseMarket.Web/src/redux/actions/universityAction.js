@@ -3,6 +3,7 @@ import UniversityApi from "../api/universityApi.js";
 
 export function getUniversitiesAsync() {
     return dispatch => {
+        //it is possible to pass getState() as a second property above, if ever needed // 
         let universityApi = new UniversityApi();
 
         return universityApi.getActionType().then(response => {

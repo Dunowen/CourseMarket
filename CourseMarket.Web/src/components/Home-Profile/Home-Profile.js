@@ -21,30 +21,32 @@ class HomeProfile extends Component {
                             <span>{this.props.profile.name}</span>
                         </div>
                         <Table className="home-profile-table">
-                            <tr>
-                                <td><Translate value="Home.Profile.registrationDate" /></td>
-                                <td>{new Date(this.props.profile.created_at).toLocaleString()}</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td><Translate value="Home.Profile.registrationDate" /></td>
+                                    <td>{new Date(this.props.profile.created_at).toLocaleString()}</td>
+                                </tr>
 
-                            <tr>
-                                <td><Translate value="Home.Profile.lastLogin" /></td>
-                                <td>{new Date(this.props.profile.updated_at).toLocaleString()}</td>
-                            </tr>
+                                <tr>
+                                    <td><Translate value="Home.Profile.lastLogin" /></td>
+                                    <td>{new Date(this.props.profile.updated_at).toLocaleString()}</td>
+                                </tr>
 
-                            <tr>
-                                <td><Translate value="Home.Profile.emailAddress" /></td>
-                                <td>{this.props.profile.email}</td>
-                            </tr>
+                                <tr>
+                                    <td><Translate value="Home.Profile.emailAddress" /></td>
+                                    <td>{this.props.profile.email}</td>
+                                </tr>
 
-                            <tr>
-                                <td><Translate value="Home.Profile.activeTrades" /></td>
-                                <td>2</td>
-                            </tr>
+                                <tr>
+                                    <td><Translate value="Home.Profile.activeTrades" /></td>
+                                    <td>2</td>
+                                </tr>
 
-                            <tr>
-                                <td><Translate value="Home.Profile.closedTrades" /></td>
-                                <td>1</td>
-                            </tr>
+                                <tr>
+                                    <td><Translate value="Home.Profile.closedTrades" /></td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
                         </Table>
                     </div>
                 </Panel>
