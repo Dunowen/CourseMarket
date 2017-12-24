@@ -6,6 +6,10 @@
     margin-right: 10px;
 }
 
+.home-profile-table {
+    margin-bottom: 0px;
+}
+
 .home-profile-table tr td {
     padding-bottom: 6px;
 }

@@ -24,11 +24,6 @@ class HomeProfile extends Component {
                             <Table className="home-profile-table">
                                 <tbody>
                                     <tr>
-                                        <td><Translate value="Home.Profile.registrationDate" /></td>
-                                        <td>{new Date(this.props.profile.created_at).toLocaleString()}</td>
-                                    </tr>
-
-                                    <tr>
                                         <td><Translate value="Home.Profile.lastLogin" /></td>
                                         <td>{new Date(this.props.profile.updated_at).toLocaleString()}</td>
                                     </tr>
